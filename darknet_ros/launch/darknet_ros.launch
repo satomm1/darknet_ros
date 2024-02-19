@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <launch>
+  <arg name="output_location" default="screen"/>
+
   <!-- Console launch prefix -->
   <arg name="launch_prefix" default=""/>
   <arg name="image" default="/camera/rgb/image_raw" />
@@ -18,7 +20,7 @@
   <rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
 
   <!-- Start darknet and ros wrapper -->
-  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="$(arg output_location)" launch-prefix="$(arg launch_prefix)">
     <param name="weights_path"          value="$(arg yolo_weights_path)" />
     <param name="config_path"           value="$(arg yolo_config_path)" />
     <remap from="camera/rgb/image_raw"  to="$(arg image)" />
